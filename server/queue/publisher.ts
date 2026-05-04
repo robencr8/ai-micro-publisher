@@ -127,9 +127,19 @@ export async function getQueueHealth(): Promise<{
   queues: Record<string, { waiting: number; active: number; failed: number }>;
   error?: string;
 }> {
-  // Timeout after 3s — Redis may not be available in dev
+  // Fast-path: skip Redis entirely when not configured in dev
+  const { isRedisAvailable } = await import("./connection");
+  const redisOk = await isRedisAvailable();
+  if (!redisOk) {
+    return {
+      connected: false,
+      queues: {},
+      error: "Redis not available (set REDIS_URL to enable queue)",
+    };
+  }
+
   const timeout = new Promise<never>((_, reject) =>
-    setTimeout(() => reject(new Error("Queue health check timeout (Redis unavailable)")), 3000)
+    setTimeout(() => reject(new Error("Queue health check timeout")), 3000)
   );
 
   const check = async () => {

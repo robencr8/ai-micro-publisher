@@ -53,7 +53,7 @@ export function registerHealthRoute(app: Express): void {
         },
         workers: workers.map((w) => ({
           name: w.name,
-          status: w.running ? "running" : "stopped",
+          status: w.state ?? (w.running ? "running" : "stopped"),
           paused: w.paused,
           processedCount: w.processedCount,
           failedCount: w.failedCount,

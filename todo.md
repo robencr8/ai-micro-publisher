@@ -10,19 +10,19 @@
 - [x] Unit tests for quality gate scoring and thresholds (18 tests, all passing)
 
 ## Milestone 1 (CURRENT — infrastructure)
-- [ ] Apply full DB schema migrations (topics, content_pages, generation_jobs, page_events, page_metrics_daily, system_settings, admin_audit_log, prototype_runs)
-- [ ] Seed system_settings with default runtime config
-- [ ] Install BullMQ + ioredis, configure queue connection
-- [ ] Queue service: publisher.ts (enqueue jobs)
-- [ ] Worker bootstrap: base worker class with retry/backoff
-- [ ] Stub workers: topic-discovery, content-generation, quality-review, publish-pages, analytics-rollup
-- [ ] /api/health endpoint: DB ping, queue ping, worker status, uptime
-- [ ] adminProcedure middleware (role === 'admin' gate)
-- [ ] Admin audit log helper (logAdminAction)
-- [ ] Admin-only tRPC router with system status procedure
-- [ ] GitHub Actions CI: pnpm install, pnpm test, pnpm check
-- [ ] M1 integration tests: DB connection, queue enqueue/dequeue, health endpoint, admin gate
-- [ ] Push M1 to GitHub
+- [x] Apply full DB schema migrations (topics, content_pages, generation_jobs, page_events, page_metrics_daily, system_settings, admin_audit_log, prototype_runs)
+- [x] Seed system_settings with default runtime config
+- [x] Install BullMQ + ioredis, configure queue connection
+- [x] Queue service: publisher.ts (enqueue jobs)
+- [x] Worker bootstrap: base worker class with retry/backoff
+- [x] Stub workers: topic-discovery, content-generation, quality-review, publish-pages, analytics-rollup
+- [ ] /api/health endpoint: DB ping, queue ping, worker status, uptime [FIX: health must respond even when Redis is down]
+- [x] adminProcedure middleware (role === 'admin' gate)
+- [x] Admin audit log helper (logAdminAction)
+- [x] Admin-only tRPC router with system status procedure
+- [x] GitHub Actions CI: pnpm install, pnpm test, pnpm check (yml ready, push via GitHub UI due to token scope)
+- [ ] M1 integration tests: DB connection, queue enqueue/dequeue, health endpoint, admin gate [FIX: add Redis graceful failure tests]
+- [ ] Push M1 to GitHub [PENDING: after stability fixes]
 
 ## Post-M1 (BLOCKED until M1 GO decision)
 - [ ] Autonomous topic discovery worker (M2)

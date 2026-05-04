@@ -1,8 +1,12 @@
 /**
  * Stub Workers — M1
- * These are scaffolded workers with correct queue bindings and pause-check wiring.
+ * Scaffolded workers with correct queue bindings and pause-check wiring.
  * Full implementation comes in M2–M5.
- * Each worker logs its job data and returns successfully (no-op body).
+ *
+ * Graceful Redis handling:
+ * - Workers check Redis availability before starting.
+ * - If Redis is unavailable, they log once and stay in DEGRADED state.
+ * - They do NOT spam connection errors or crash the process.
  */
 
 import { Job } from "bullmq";
@@ -15,7 +19,6 @@ export class TopicDiscoveryWorker extends BaseWorker {
   constructor() {
     super(QUEUE_NAMES.TOPIC_DISCOVERY, "TopicDiscoveryWorker", "generation_paused");
   }
-
   protected async processJob(job: Job): Promise<void> {
     console.log(`[TopicDiscoveryWorker] STUB — job ${job.id}`, job.data);
     // M2: ingest RSS feeds, seasonal calendar, seeded keywords
@@ -29,7 +32,6 @@ export class ContentGenerationWorker extends BaseWorker {
   constructor() {
     super(QUEUE_NAMES.CONTENT_GENERATION, "ContentGenerationWorker", "generation_paused");
   }
-
   protected async processJob(job: Job): Promise<void> {
     console.log(`[ContentGenerationWorker] STUB — job ${job.id}`, job.data);
     // M3: build structured brief, call LLM, store draft in content_pages
@@ -43,7 +45,6 @@ export class QualityReviewWorker extends BaseWorker {
   constructor() {
     super(QUEUE_NAMES.QUALITY_REVIEW, "QualityReviewWorker", "generation_paused");
   }
-
   protected async processJob(job: Job): Promise<void> {
     console.log(`[QualityReviewWorker] STUB — job ${job.id}`, job.data);
     // M4: Stage 1 heuristics + Stage 2 LLM review
@@ -57,7 +58,6 @@ export class PublishPagesWorker extends BaseWorker {
   constructor() {
     super(QUEUE_NAMES.PUBLISH_PAGES, "PublishPagesWorker", "publishing_paused");
   }
-
   protected async processJob(job: Job): Promise<void> {
     console.log(`[PublishPagesWorker] STUB — job ${job.id}`, job.data);
     // M5: generate slug, canonical URL, metadata, structured data
@@ -71,7 +71,6 @@ export class AnalyticsRollupWorker extends BaseWorker {
   constructor() {
     super(QUEUE_NAMES.ANALYTICS_ROLLUP, "AnalyticsRollupWorker", "generation_paused");
   }
-
   protected async processJob(job: Job): Promise<void> {
     console.log(`[AnalyticsRollupWorker] STUB — job ${job.id}`, job.data);
     // M7: aggregate page_events into page_metrics_daily
@@ -89,20 +88,38 @@ export const ALL_WORKERS = [
   new AnalyticsRollupWorker(),
 ] as const;
 
-export function startAllWorkers(): void {
+export function getAllWorkerStatuses() {
+  return ALL_WORKERS.map((w) => w.getStatus());
+}
+
+export async function startAllWorkers(): Promise<void> {
+  const { isRedisAvailable } = await import("../queue/connection");
+  const redisOk = await isRedisAvailable();
+
+  if (!redisOk) {
+    console.warn(
+      "[Workers] Redis unavailable — workers will not start. " +
+      "Set REDIS_URL to enable queue processing. " +
+      "System continues to serve HTTP requests normally."
+    );
+    // Mark all workers as degraded (not running, not crashed)
+    for (const w of ALL_WORKERS) {
+      w.setDegraded("Redis unavailable at startup");
+    }
+    return;
+  }
+
   for (const worker of ALL_WORKERS) {
     try {
       worker.start(1);
     } catch (err) {
-      console.warn(`[Workers] Failed to start ${worker.getStatus().name}:`, err);
+      const msg = err instanceof Error ? err.message : String(err);
+      console.warn(`[Workers] Failed to start ${worker.getStatus().name}: ${msg}`);
+      worker.setDegraded(msg);
     }
   }
 }
 
 export async function stopAllWorkers(): Promise<void> {
   await Promise.all(ALL_WORKERS.map((w) => w.stop()));
-}
-
-export function getAllWorkerStatuses() {
-  return ALL_WORKERS.map((w) => w.getStatus());
 }

@@ -1,8 +1,11 @@
 /**
  * Base Worker
  * All autonomous workers extend this class.
- * Provides: lifecycle management, pause-check via system_settings, error logging,
- * retry-safe execution, and graceful shutdown.
+ * Provides: lifecycle management, pause-check via system_settings,
+ * graceful Redis failure handling, retry-safe execution, and shutdown.
+ *
+ * Key design: if Redis is unavailable, workers enter DEGRADED state
+ * (not running, not crashed) and the process continues normally.
  */
 
 import { Worker, Job, WorkerOptions } from "bullmq";
@@ -11,8 +14,12 @@ import { getDb } from "../db";
 import { systemSettings } from "../../drizzle/schema";
 import { eq } from "drizzle-orm";
 
+export type WorkerState = "stopped" | "running" | "degraded";
+
 export interface WorkerStatus {
   name: string;
+  state: WorkerState;
+  /** @deprecated use state */
   running: boolean;
   paused: boolean;
   processedCount: number;
@@ -23,7 +30,11 @@ export interface WorkerStatus {
 
 export abstract class BaseWorker {
   protected worker: Worker | null = null;
-  protected status: WorkerStatus;
+  protected _state: WorkerState = "stopped";
+  protected _processedCount = 0;
+  protected _failedCount = 0;
+  protected _lastProcessedAt: Date | null = null;
+  protected _lastError: string | null = null;
   protected pauseSettingKey: string;
 
   constructor(
@@ -32,21 +43,10 @@ export abstract class BaseWorker {
     pauseSettingKey: string,
   ) {
     this.pauseSettingKey = pauseSettingKey;
-    this.status = {
-      name: workerName,
-      running: false,
-      paused: false,
-      processedCount: 0,
-      failedCount: 0,
-      lastProcessedAt: null,
-      lastError: null,
-    };
   }
 
-  /** Override this in each concrete worker to handle job processing */
   protected abstract processJob(job: Job): Promise<void>;
 
-  /** Check if this worker is globally paused via system_settings */
   protected async isPaused(): Promise<boolean> {
     try {
       const db = await getDb();
@@ -58,12 +58,19 @@ export abstract class BaseWorker {
         .limit(1);
       return rows[0]?.value === "true";
     } catch {
-      return false; // Default: not paused if DB unavailable
+      return false;
     }
   }
 
+  /** Mark worker as degraded (Redis unavailable, not a crash) */
+  setDegraded(reason: string): void {
+    this._state = "degraded";
+    this._lastError = reason;
+    console.warn(`[${this.workerName}] DEGRADED: ${reason}`);
+  }
+
   start(concurrency = 1): void {
-    if (this.worker) return; // Already running
+    if (this.worker || this._state === "degraded") return;
 
     const options: WorkerOptions = {
       connection: redisConnection,
@@ -79,14 +86,13 @@ export abstract class BaseWorker {
           console.log(`[${this.workerName}] Paused — skipping job ${job.id}`);
           return;
         }
-
         try {
           await this.processJob(job);
-          this.status.processedCount++;
-          this.status.lastProcessedAt = new Date();
+          this._processedCount++;
+          this._lastProcessedAt = new Date();
         } catch (err) {
-          this.status.failedCount++;
-          this.status.lastError = err instanceof Error ? err.message : String(err);
+          this._failedCount++;
+          this._lastError = err instanceof Error ? err.message : String(err);
           throw err; // Re-throw so BullMQ handles retry
         }
       },
@@ -98,15 +104,29 @@ export abstract class BaseWorker {
     });
 
     this.worker.on("failed", (job, err) => {
-      console.error(`[${this.workerName}] Job ${job?.id} failed:`, err.message);
+      console.error(`[${this.workerName}] Job ${job?.id} failed: ${err.message}`);
     });
 
+    // Suppress Redis connection errors — they are expected when Redis is unavailable
     this.worker.on("error", (err) => {
-      console.error(`[${this.workerName}] Worker error:`, err.message);
-      this.status.lastError = err.message;
+      if (
+        err.message?.includes("ECONNREFUSED") ||
+        err.message?.includes("connect") ||
+        err.message?.includes("Redis")
+      ) {
+        // Only log once, not on every retry
+        if (this._state !== "degraded") {
+          console.warn(`[${this.workerName}] Redis connection failed — entering degraded state`);
+          this._state = "degraded";
+          this._lastError = err.message;
+        }
+      } else {
+        console.error(`[${this.workerName}] Worker error: ${err.message}`);
+        this._lastError = err.message;
+      }
     });
 
-    this.status.running = true;
+    this._state = "running";
     console.log(`[${this.workerName}] Started (concurrency=${concurrency})`);
   }
 
@@ -114,12 +134,21 @@ export abstract class BaseWorker {
     if (this.worker) {
       await this.worker.close();
       this.worker = null;
-      this.status.running = false;
-      console.log(`[${this.workerName}] Stopped`);
     }
+    this._state = "stopped";
+    console.log(`[${this.workerName}] Stopped`);
   }
 
   getStatus(): WorkerStatus {
-    return { ...this.status };
+    return {
+      name: this.workerName,
+      state: this._state,
+      running: this._state === "running",
+      paused: false,
+      processedCount: this._processedCount,
+      failedCount: this._failedCount,
+      lastProcessedAt: this._lastProcessedAt,
+      lastError: this._lastError,
+    };
   }
 }

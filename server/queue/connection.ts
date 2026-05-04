@@ -1,10 +1,12 @@
 /**
  * Queue Connection
- * Provides a shared Redis connection for BullMQ queues and workers.
- * Falls back gracefully when Redis is not configured (dev without Redis).
+ * Provides Redis connection config for BullMQ.
+ * Includes a proactive availability check so workers skip startup
+ * when Redis is not reachable, instead of spamming connection errors.
  */
 
-import { ConnectionOptions } from "bullmq";
+import type { ConnectionOptions } from "bullmq";
+import Redis from "ioredis";
 
 export const QUEUE_NAMES = {
   TOPIC_DISCOVERY: "topic-discovery",
@@ -16,25 +18,21 @@ export const QUEUE_NAMES = {
 
 export type QueueName = (typeof QUEUE_NAMES)[keyof typeof QUEUE_NAMES];
 
-/**
- * Parse a Redis URL or return a default localhost config.
- * Supports: redis://host:port, redis://:password@host:port, rediss:// (TLS)
- */
 export function getRedisConnection(): ConnectionOptions {
   const redisUrl = process.env.REDIS_URL;
 
   if (redisUrl) {
     try {
       const url = new URL(redisUrl);
-      const config: ConnectionOptions = {
+      return {
         host: url.hostname || "localhost",
         port: parseInt(url.port || "6379", 10),
         ...(url.password ? { password: decodeURIComponent(url.password) } : {}),
         ...(url.protocol === "rediss:" ? { tls: {} } : {}),
-        maxRetriesPerRequest: null, // Required by BullMQ
+        maxRetriesPerRequest: null,
         enableReadyCheck: false,
+        lazyConnect: true,
       };
-      return config;
     } catch {
       console.warn("[Queue] Invalid REDIS_URL, falling back to localhost");
     }
@@ -46,7 +44,58 @@ export function getRedisConnection(): ConnectionOptions {
     ...(process.env.REDIS_PASSWORD ? { password: process.env.REDIS_PASSWORD } : {}),
     maxRetriesPerRequest: null,
     enableReadyCheck: false,
+    lazyConnect: true,
   };
 }
 
 export const redisConnection = getRedisConnection();
+
+/**
+ * Check if Redis is reachable before starting workers.
+ * Returns true only if Redis responds within 2 seconds.
+ * In dev without REDIS_URL, returns false immediately (no connection attempt).
+ */
+export async function isRedisAvailable(): Promise<boolean> {
+  // Skip Redis check in dev when no URL is configured
+  if (!process.env.REDIS_URL && process.env.NODE_ENV !== "production") {
+    return false;
+  }
+
+  const conn = getRedisConnection() as {
+    host?: string;
+    port?: number;
+    password?: string;
+    tls?: object;
+  };
+
+  const client = new Redis({
+    host: conn.host ?? "localhost",
+    port: conn.port ?? 6379,
+    ...(conn.password ? { password: conn.password } : {}),
+    ...(conn.tls ? { tls: conn.tls } : {}),
+    maxRetriesPerRequest: 1,
+    enableReadyCheck: true,
+    lazyConnect: true,
+    connectTimeout: 2000,
+    retryStrategy: () => null, // No retries during availability check
+  });
+
+  return new Promise<boolean>((resolve) => {
+    const timeout = setTimeout(() => {
+      client.disconnect();
+      resolve(false);
+    }, 2000);
+
+    client
+      .connect()
+      .then(() => {
+        clearTimeout(timeout);
+        client.disconnect();
+        resolve(true);
+      })
+      .catch(() => {
+        clearTimeout(timeout);
+        resolve(false);
+      });
+  });
+}
