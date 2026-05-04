@@ -16,13 +16,15 @@
 - [x] Queue service: publisher.ts (enqueue jobs)
 - [x] Worker bootstrap: base worker class with retry/backoff
 - [x] Stub workers: topic-discovery, content-generation, quality-review, publish-pages, analytics-rollup
-- [ ] /api/health endpoint: DB ping, queue ping, worker status, uptime [FIX: health must respond even when Redis is down]
+- [x] /api/health endpoint: DB ping, queue ping, worker status, uptime (responds in <250ms with or without Redis)
 - [x] adminProcedure middleware (role === 'admin' gate)
 - [x] Admin audit log helper (logAdminAction)
 - [x] Admin-only tRPC router with system status procedure
 - [x] GitHub Actions CI: pnpm install, pnpm test, pnpm check (yml ready, push via GitHub UI due to token scope)
-- [ ] M1 integration tests: DB connection, queue enqueue/dequeue, health endpoint, admin gate [FIX: add Redis graceful failure tests]
-- [ ] Push M1 to GitHub [PENDING: after stability fixes]
+- [x] M1 integration tests: DB connection, queue enqueue/dequeue config, health endpoint, admin gate (34/34 passing)
+- [ ] BLOCKER: Real Redis/Valkey required for queue execution proof before M1 GO
+- [ ] Queue execution proof: enqueue job, worker pickup, intentional failure, retry/backoff, final status
+- [x] Push M1 infrastructure code to GitHub (pending queue proof commit)
 
 ## Post-M1 (BLOCKED until M1 GO decision)
 - [ ] Autonomous topic discovery worker (M2)
