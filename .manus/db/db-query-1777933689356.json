@@ -1,0 +1,9 @@
+{
+  "query": "CREATE TABLE `page_events` (\n\t`id` bigint AUTO_INCREMENT NOT NULL,\n\t`page_id` int,\n\t`event_type` enum('page_view','ad_slot_visible','ad_click_out','bot_blocked') NOT NULL,\n\t`session_hash` varchar(64),\n\t`ip_hash` varchar(64),\n\t`user_agent` varchar(512),\n\t`referrer` varchar(512),\n\t`bot_score` int NOT NULL DEFAULT 0,\n\t`ad_eligible` boolean NOT NULL DEFAULT false,\n\t`is_admin` boolean NOT NULL DEFAULT false,\n\t`is_internal` boolean NOT NULL DEFAULT false,\n\t`turnstile_passed` boolean,\n\t`country` varchar(8),\n\t`createdAt` timestamp NOT NULL DEFAULT (now()),\n\tCONSTRAINT `page_events_id` PRIMARY KEY(`id`)\n)",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2wCcvzbmKRw9Pje.541775a93539 --database i2oxkxp52Nqaqoc37frtnY --execute CREATE TABLE `page_events` (\n\t`id` bigint AUTO_INCREMENT NOT NULL,\n\t`page_id` int,\n\t`event_type` enum('page_view','ad_slot_visible','ad_click_out','bot_blocked') NOT NULL,\n\t`session_hash` varchar(64),\n\t`ip_hash` varchar(64),\n\t`user_agent` varchar(512),\n\t`referrer` varchar(512),\n\t`bot_score` int NOT NULL DEFAULT 0,\n\t`ad_eligible` boolean NOT NULL DEFAULT false,\n\t`is_admin` boolean NOT NULL DEFAULT false,\n\t`is_internal` boolean NOT NULL DEFAULT false,\n\t`turnstile_passed` boolean,\n\t`country` varchar(8),\n\t`createdAt` timestamp NOT NULL DEFAULT (now()),\n\tCONSTRAINT `page_events_id` PRIMARY KEY(`id`)\n)",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 1624
+}

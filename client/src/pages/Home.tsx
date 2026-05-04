@@ -1,31 +1,32 @@
-import { useAuth } from "@/_core/hooks/useAuth";
+import { Link } from "wouter";
+import { FlaskConical, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Loader2 } from "lucide-react";
-import { getLoginUrl } from "@/const";
-import { Streamdown } from 'streamdown';
 
-/**
- * All content in this page are only for example, replace with your own feature implementation
- * When building pages, remember your instructions in Frontend Workflow, Frontend Best Practices, Design Guide and Common Pitfalls
- */
 export default function Home() {
-  // The userAuth hooks provides authentication state
-  // To implement login/logout functionality, simply call logout() or redirect to getLoginUrl()
-  let { user, loading, error, isAuthenticated, logout } = useAuth();
-
-  // If theme is switchable in App.tsx, we can implement theme toggling like this:
-  // const { theme, toggleTheme } = useTheme();
-
   return (
-    <div className="min-h-screen flex flex-col">
-      <main>
-        {/* Example: lucide-react for icons */}
-        <Loader2 className="animate-spin" />
-        Example Page
-        {/* Example: Streamdown for markdown rendering */}
-        <Streamdown>Any **markdown** content</Streamdown>
-        <Button variant="default">Example Button</Button>
-      </main>
+    <div className="min-h-screen bg-slate-50 flex flex-col items-center justify-center px-6">
+      <div className="max-w-md text-center space-y-6">
+        <div className="flex justify-center">
+          <div className="bg-indigo-100 rounded-2xl p-4">
+            <FlaskConical size={40} className="text-indigo-600" />
+          </div>
+        </div>
+        <h1 className="text-3xl font-bold text-slate-900">AI Micro-Publisher</h1>
+        <p className="text-slate-500 text-base leading-relaxed">
+          Autonomous 24/7 content publishing platform. Discovers trending topics, generates
+          quality-checked articles, and monetizes real human traffic.
+        </p>
+        <div className="bg-amber-50 border border-amber-200 rounded-lg px-4 py-3 text-sm text-amber-800">
+          <strong>Milestone 0 in progress</strong> — validating the core loop before production infrastructure.
+        </div>
+        <Link href="/prototype">
+          <Button className="bg-indigo-600 hover:bg-indigo-700 text-white w-full">
+            <FlaskConical size={16} className="mr-2" />
+            Open M0 Prototype
+            <ArrowRight size={16} className="ml-2" />
+          </Button>
+        </Link>
+      </div>
     </div>
   );
 }
