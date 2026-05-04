@@ -1,0 +1,60 @@
+{
+  "query": "SELECT TABLE_NAME, TABLE_ROWS, CREATE_TIME\nFROM information_schema.TABLES\nWHERE TABLE_SCHEMA = DATABASE()\nORDER BY TABLE_NAME",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2wCcvzbmKRw9Pje.541775a93539 --database i2oxkxp52Nqaqoc37frtnY --execute SELECT TABLE_NAME, TABLE_ROWS, CREATE_TIME\nFROM information_schema.TABLES\nWHERE TABLE_SCHEMA = DATABASE()\nORDER BY TABLE_NAME",
+  "rows": [
+    {
+      "TABLE_NAME": "__drizzle_migrations",
+      "TABLE_ROWS": "1",
+      "CREATE_TIME": "2026-05-04 22:24:12"
+    },
+    {
+      "TABLE_NAME": "admin_audit_log",
+      "TABLE_ROWS": "0",
+      "CREATE_TIME": "2026-05-04 22:59:02"
+    },
+    {
+      "TABLE_NAME": "content_pages",
+      "TABLE_ROWS": "0",
+      "CREATE_TIME": "2026-05-04 22:59:03"
+    },
+    {
+      "TABLE_NAME": "generation_jobs",
+      "TABLE_ROWS": "0",
+      "CREATE_TIME": "2026-05-04 22:59:04"
+    },
+    {
+      "TABLE_NAME": "page_events",
+      "TABLE_ROWS": "0",
+      "CREATE_TIME": "2026-05-04 22:59:05"
+    },
+    {
+      "TABLE_NAME": "page_metrics_daily",
+      "TABLE_ROWS": "0",
+      "CREATE_TIME": "2026-05-04 22:59:06"
+    },
+    {
+      "TABLE_NAME": "prototype_runs",
+      "TABLE_ROWS": "0",
+      "CREATE_TIME": "2026-05-04 22:58:42"
+    },
+    {
+      "TABLE_NAME": "system_settings",
+      "TABLE_ROWS": "15",
+      "CREATE_TIME": "2026-05-04 22:58:54"
+    },
+    {
+      "TABLE_NAME": "topics",
+      "TABLE_ROWS": "0",
+      "CREATE_TIME": "2026-05-04 22:59:06"
+    },
+    {
+      "TABLE_NAME": "users",
+      "TABLE_ROWS": "1",
+      "CREATE_TIME": "2026-05-04 22:24:13"
+    }
+  ],
+  "messages": [],
+  "stdout": "TABLE_NAME\tTABLE_ROWS\tCREATE_TIME\n__drizzle_migrations\t1\t2026-05-04 22:24:12\nadmin_audit_log\t0\t2026-05-04 22:59:02\ncontent_pages\t0\t2026-05-04 22:59:03\ngeneration_jobs\t0\t2026-05-04 22:59:04\npage_events\t0\t2026-05-04 22:59:05\npage_metrics_daily\t0\t2026-05-04 22:59:06\nprototype_runs\t0\t2026-05-04 22:58:42\nsystem_settings\t15\t2026-05-04 22:58:54\ntopics\t0\t2026-05-04 22:59:06\nusers\t1\t2026-05-04 22:24:13\n",
+  "stderr": "",
+  "execution_time_ms": 1557
+}

@@ -1,0 +1,9 @@
+{
+  "query": "CREATE TABLE IF NOT EXISTS `page_metrics_daily` (\n  `id` int AUTO_INCREMENT NOT NULL,\n  `page_id` int NOT NULL,\n  `date` varchar(10) NOT NULL,\n  `total_views` int NOT NULL DEFAULT 0,\n  `human_views` int NOT NULL DEFAULT 0,\n  `ad_eligible_views` int NOT NULL DEFAULT 0,\n  `ad_slot_visibles` int NOT NULL DEFAULT 0,\n  `bot_views` int NOT NULL DEFAULT 0,\n  `estimated_revenue_usd` float NOT NULL DEFAULT 0,\n  `avg_bot_score` float NOT NULL DEFAULT 0,\n  `createdAt` timestamp NOT NULL DEFAULT (now()),\n  `updatedAt` timestamp NOT NULL DEFAULT (now()) ON UPDATE CURRENT_TIMESTAMP,\n  CONSTRAINT `page_metrics_daily_id` PRIMARY KEY(`id`),\n  CONSTRAINT `idx_metrics_page_date` UNIQUE(`page_id`,`date`)\n)",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2wCcvzbmKRw9Pje.541775a93539 --database i2oxkxp52Nqaqoc37frtnY --execute CREATE TABLE IF NOT EXISTS `page_metrics_daily` (\n  `id` int AUTO_INCREMENT NOT NULL,\n  `page_id` int NOT NULL,\n  `date` varchar(10) NOT NULL,\n  `total_views` int NOT NULL DEFAULT 0,\n  `human_views` int NOT NULL DEFAULT 0,\n  `ad_eligible_views` int NOT NULL DEFAULT 0,\n  `ad_slot_visibles` int NOT NULL DEFAULT 0,\n  `bot_views` int NOT NULL DEFAULT 0,\n  `estimated_revenue_usd` float NOT NULL DEFAULT 0,\n  `avg_bot_score` float NOT NULL DEFAULT 0,\n  `createdAt` timestamp NOT NULL DEFAULT (now()),\n  `updatedAt` timestamp NOT NULL DEFAULT (now()) ON UPDATE CURRENT_TIMESTAMP,\n  CONSTRAINT `page_metrics_daily_id` PRIMARY KEY(`id`),\n  CONSTRAINT `idx_metrics_page_date` UNIQUE(`page_id`,`date`)\n)",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 1821
+}

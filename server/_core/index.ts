@@ -8,6 +8,8 @@ import { registerStorageProxy } from "./storageProxy";
 import { appRouter } from "../routers";
 import { createContext } from "./context";
 import { serveStatic, setupVite } from "./vite";
+import { registerHealthRoute } from "../health";
+import { startAllWorkers, stopAllWorkers } from "../workers/stubs";
 
 function isPortAvailable(port: number): Promise<boolean> {
   return new Promise(resolve => {
@@ -36,6 +38,7 @@ async function startServer() {
   app.use(express.urlencoded({ limit: "50mb", extended: true }));
   registerStorageProxy(app);
   registerOAuthRoutes(app);
+  registerHealthRoute(app);
   // tRPC API
   app.use(
     "/api/trpc",
@@ -60,6 +63,15 @@ async function startServer() {
 
   server.listen(port, () => {
     console.log(`Server running on http://localhost:${port}/`);
+    // Start background workers (stubs in M1, full impl in M2-M5)
+    startAllWorkers();
+  });
+
+  // Graceful shutdown
+  process.on("SIGTERM", async () => {
+    console.log("[Server] SIGTERM received, shutting down workers...");
+    await stopAllWorkers();
+    server.close(() => process.exit(0));
   });
 }
 

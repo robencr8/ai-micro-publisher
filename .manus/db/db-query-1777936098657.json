@@ -1,0 +1,85 @@
+{
+  "query": "SELECT `key`, `value`, `description` FROM system_settings ORDER BY `key`",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2wCcvzbmKRw9Pje.541775a93539 --database i2oxkxp52Nqaqoc37frtnY --execute SELECT `key`, `value`, `description` FROM system_settings ORDER BY `key`",
+  "rows": [
+    {
+      "key": "ads_paused",
+      "value": "false",
+      "description": "Global pause switch for ad serving"
+    },
+    {
+      "key": "archive_threshold_days",
+      "value": "90",
+      "description": "Pages older than this with zero traffic are archived"
+    },
+    {
+      "key": "bot_score_ad_cutoff",
+      "value": "60",
+      "description": "Sessions with bot_score >= this value do not receive ads"
+    },
+    {
+      "key": "daily_spend_limit_usd",
+      "value": "5.00",
+      "description": "Maximum LLM spend per day in USD"
+    },
+    {
+      "key": "generation_paused",
+      "value": "false",
+      "description": "Global pause switch for content generation worker"
+    },
+    {
+      "key": "m0_validated",
+      "value": "true",
+      "description": "Milestone 0 validation status"
+    },
+    {
+      "key": "m1_status",
+      "value": "in_progress",
+      "description": "Milestone 1 build status"
+    },
+    {
+      "key": "max_retry_count",
+      "value": "2",
+      "description": "Maximum number of retries for failed generation jobs"
+    },
+    {
+      "key": "min_publish_score",
+      "value": "75",
+      "description": "Minimum publish_score threshold for page approval"
+    },
+    {
+      "key": "min_readability_score",
+      "value": "70",
+      "description": "Minimum readability_score threshold for page approval"
+    },
+    {
+      "key": "min_safety_score",
+      "value": "95",
+      "description": "Minimum safety_score threshold for page approval"
+    },
+    {
+      "key": "min_usefulness_score",
+      "value": "75",
+      "description": "Minimum usefulness_score threshold for page approval"
+    },
+    {
+      "key": "publishing_paused",
+      "value": "false",
+      "description": "Global pause switch for publishing worker"
+    },
+    {
+      "key": "refresh_threshold_days",
+      "value": "30",
+      "description": "Pages older than this with declining traffic are refreshed"
+    },
+    {
+      "key": "topic_discovery_interval_minutes",
+      "value": "30",
+      "description": "How often the topic discovery worker runs"
+    }
+  ],
+  "messages": [],
+  "stdout": "key\tvalue\tdescription\nads_paused\tfalse\tGlobal pause switch for ad serving\narchive_threshold_days\t90\tPages older than this with zero traffic are archived\nbot_score_ad_cutoff\t60\tSessions with bot_score >= this value do not receive ads\ndaily_spend_limit_usd\t5.00\tMaximum LLM spend per day in USD\ngeneration_paused\tfalse\tGlobal pause switch for content generation worker\nm0_validated\ttrue\tMilestone 0 validation status\nm1_status\tin_progress\tMilestone 1 build status\nmax_retry_count\t2\tMaximum number of retries for failed generation jobs\nmin_publish_score\t75\tMinimum publish_score threshold for page approval\nmin_readability_score\t70\tMinimum readability_score threshold for page approval\nmin_safety_score\t95\tMinimum safety_score threshold for page approval\nmin_usefulness_score\t75\tMinimum usefulness_score threshold for page approval\npublishing_paused\tfalse\tGlobal pause switch for publishing worker\nrefresh_threshold_days\t30\tPages older than this with declining traffic are refreshed\ntopic_discovery_interval_minutes\t30\tHow often the topic discovery worker runs\n",
+  "stderr": "",
+  "execution_time_ms": 1508
+}
