@@ -53,8 +53,19 @@
 - [ ] M3 unit tests: brief generator, cost estimation, spend limit logic
 - [ ] Push M3 to GitHub
 
-## Post-M3 (BLOCKED until M3 GO decision)
-- [ ] Two-stage quality gate (M4)
+## Milestone 4 (CURRENT — quality gate, controlled mode)
+- [ ] Stage 1 heuristic checker: readability, metadata, headings, keyword density, length, duplicate slug
+- [ ] Stage 2 LLM reviewer: usefulness, coherence, factual caution, safety → JSON structured output
+- [ ] Quality decision engine: approve/retry/merge/reject with reasons
+- [ ] Quality review runner: apply both stages, update content_pages scores
+- [ ] Update content_pages: publish_score, safety_score, originality_score, usefulness_score, coherence_score, factual_grounding_score, readability_score, policy_status, quality_decision, quality_reasons
+- [ ] Admin quality review tRPC procedures: list pending, get review detail, manual override
+- [ ] Admin quality review UI: pending drafts, scores, decision, rejection reasons
+- [ ] M4 unit tests: unsafe rejected, duplicate merge-suggested, thin rejected, good approved, borderline retry
+- [ ] Run quality review on all 6 existing drafts and capture evidence
+- [ ] Push M4 to GitHub
+
+## Post-M4 (BLOCKED until M4 GO decision)
 - [ ] SEO publishing worker (M5)
 - [ ] Content generation pipeline with version tracking (M3)
 - [ ] Two-stage quality gate (M4)

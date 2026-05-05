@@ -1,0 +1,16 @@
+{
+  "query": "SELECT id, quality_decision, quality_reasons, rejection_reason FROM content_pages WHERE id = 1",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2wCcvzbmKRw9Pje.541775a93539 --database i2oxkxp52Nqaqoc37frtnY --execute SELECT id, quality_decision, quality_reasons, rejection_reason FROM content_pages WHERE id = 1",
+  "rows": [
+    {
+      "id": "1",
+      "quality_decision": "retry",
+      "quality_reasons": "[\"Target keyword \\\"summer internship tips for software developers\\\" not found in content\", \"The article provides solid advice for software development interns, aligning well with the target keyword.\", \"The structure is logical and easy to follow, with clear headings.\", \"The advice given is practical and factually sound.\", \"The article abruptly ends mid-sentence, indicating incompleteness.\", \"The target audience is 'general professionals', but the content is highly specific to 'software development interns'. This mismatch means the article is not broadly useful for the stated audience.\"]",
+      "rejection_reason": "NULL"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tquality_decision\tquality_reasons\trejection_reason\n1\tretry\t[\"Target keyword \\\"summer internship tips for software developers\\\" not found in content\", \"The article provides solid advice for software development interns, aligning well with the target keyword.\", \"The structure is logical and easy to follow, with clear headings.\", \"The advice given is practical and factually sound.\", \"The article abruptly ends mid-sentence, indicating incompleteness.\", \"The target audience is 'general professionals', but the content is highly specific to 'software development interns'. This mismatch means the article is not broadly useful for the stated audience.\"]\tNULL\n",
+  "stderr": "",
+  "execution_time_ms": 1522
+}

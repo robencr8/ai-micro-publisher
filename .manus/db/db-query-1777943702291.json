@@ -1,0 +1,88 @@
+{
+  "query": "SELECT id, topic_id, slug, title, status, version, publish_score, safety_score, usefulness_score, readability_score, createdAt FROM content_pages ORDER BY createdAt DESC LIMIT 10",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2wCcvzbmKRw9Pje.541775a93539 --database i2oxkxp52Nqaqoc37frtnY --execute SELECT id, topic_id, slug, title, status, version, publish_score, safety_score, usefulness_score, readability_score, createdAt FROM content_pages ORDER BY createdAt DESC LIMIT 10",
+  "rows": [
+    {
+      "id": "6",
+      "topic_id": "9",
+      "slug": "remote-work-productivity-tips",
+      "title": "Boosting Your Remote Work Productivity: Practical Tips for Success",
+      "status": "draft",
+      "version": "1",
+      "publish_score": "0",
+      "safety_score": "0",
+      "usefulness_score": "0",
+      "readability_score": "0",
+      "createdAt": "2026-05-05 01:05:03"
+    },
+    {
+      "id": "5",
+      "topic_id": "19",
+      "slug": "linkedin-profile-tips-for-software-engineers",
+      "title": "LinkedIn Profile Tips for Software Engineers",
+      "status": "draft",
+      "version": "1",
+      "publish_score": "0",
+      "safety_score": "0",
+      "usefulness_score": "0",
+      "readability_score": "0",
+      "createdAt": "2026-05-05 01:04:50"
+    },
+    {
+      "id": "4",
+      "topic_id": "21",
+      "slug": "cover-letter-template-for-software-developer",
+      "title": "Software Developer Cover Letter Template: Stand Out in Your Job Search",
+      "status": "draft",
+      "version": "1",
+      "publish_score": "0",
+      "safety_score": "0",
+      "usefulness_score": "0",
+      "readability_score": "0",
+      "createdAt": "2026-05-05 01:04:38"
+    },
+    {
+      "id": "3",
+      "topic_id": "7",
+      "slug": "best-free-project-management-tools-for-small-teams",
+      "title": "Best Free Project Management Tools for Small Teams",
+      "status": "draft",
+      "version": "1",
+      "publish_score": "0",
+      "safety_score": "0",
+      "usefulness_score": "0",
+      "readability_score": "0",
+      "createdAt": "2026-05-05 01:02:32"
+    },
+    {
+      "id": "2",
+      "topic_id": "1",
+      "slug": "how-to-write-a-polite-follow-up-email-after-no-response",
+      "title": "How to Write a Polite Follow-Up Email After No Response",
+      "status": "draft",
+      "version": "1",
+      "publish_score": "0",
+      "safety_score": "0",
+      "usefulness_score": "0",
+      "readability_score": "0",
+      "createdAt": "2026-05-05 01:02:18"
+    },
+    {
+      "id": "1",
+      "topic_id": "40",
+      "slug": "summer-internship-tips-for-software-developers",
+      "title": "Making the Most of Your Software Development Summer Internship",
+      "status": "draft",
+      "version": "1",
+      "publish_score": "0",
+      "safety_score": "0",
+      "usefulness_score": "0",
+      "readability_score": "0",
+      "createdAt": "2026-05-05 01:02:03"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\ttopic_id\tslug\ttitle\tstatus\tversion\tpublish_score\tsafety_score\tusefulness_score\treadability_score\tcreatedAt\n6\t9\tremote-work-productivity-tips\tBoosting Your Remote Work Productivity: Practical Tips for Success\tdraft\t1\t0\t0\t0\t0\t2026-05-05 01:05:03\n5\t19\tlinkedin-profile-tips-for-software-engineers\tLinkedIn Profile Tips for Software Engineers\tdraft\t1\t0\t0\t0\t0\t2026-05-05 01:04:50\n4\t21\tcover-letter-template-for-software-developer\tSoftware Developer Cover Letter Template: Stand Out in Your Job Search\tdraft\t1\t0\t0\t0\t0\t2026-05-05 01:04:38\n3\t7\tbest-free-project-management-tools-for-small-teams\tBest Free Project Management Tools for Small Teams\tdraft\t1\t0\t0\t0\t0\t2026-05-05 01:02:32\n2\t1\thow-to-write-a-polite-follow-up-email-after-no-response\tHow to Write a Polite Follow-Up Email After No Response\tdraft\t1\t0\t0\t0\t0\t2026-05-05 01:02:18\n1\t40\tsummer-internship-tips-for-software-developers\tMaking the Most of Your Software Development Summer Internship\tdraft\t1\t0\t0\t0\t0\t2026-05-05 01:02:03\n",
+  "stderr": "",
+  "execution_time_ms": 2281
+}

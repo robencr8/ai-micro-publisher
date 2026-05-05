@@ -92,6 +92,16 @@ async function startServer() {
         res.status(500).json({ error: err instanceof Error ? err.message : String(err) });
       }
     });
+
+    app.post('/api/dev/review-all', async (_req, res) => {
+      try {
+        const { reviewAllPendingPages } = await import('../m4/runner');
+        const results = await reviewAllPendingPages();
+        res.json({ success: true, results });
+      } catch (err) {
+        res.status(500).json({ error: err instanceof Error ? err.message : String(err) });
+      }
+    });
   }
 
   // tRPC API

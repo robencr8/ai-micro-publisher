@@ -1,0 +1,24 @@
+{
+  "query": "SELECT status, COUNT(*) as count, AVG(opportunity_score) as avg_score, MIN(opportunity_score) as min_score, MAX(opportunity_score) as max_score FROM topics GROUP BY status ORDER BY status",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2wCcvzbmKRw9Pje.541775a93539 --database i2oxkxp52Nqaqoc37frtnY --execute SELECT status, COUNT(*) as count, AVG(opportunity_score) as avg_score, MIN(opportunity_score) as min_score, MAX(opportunity_score) as max_score FROM topics GROUP BY status ORDER BY status",
+  "rows": [
+    {
+      "status": "candidate",
+      "count": "34",
+      "avg_score": "69.1765",
+      "min_score": "66",
+      "max_score": "77"
+    },
+    {
+      "status": "done",
+      "count": "6",
+      "avg_score": "79.8333",
+      "min_score": "78",
+      "max_score": "82"
+    }
+  ],
+  "messages": [],
+  "stdout": "status\tcount\tavg_score\tmin_score\tmax_score\ncandidate\t34\t69.1765\t66\t77\ndone\t6\t79.8333\t78\t82\n",
+  "stderr": "",
+  "execution_time_ms": 1632
+}

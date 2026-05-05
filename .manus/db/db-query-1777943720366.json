@@ -1,0 +1,50 @@
+{
+  "query": "SELECT `key`, `value`, `description` FROM system_settings WHERE `key` IN ('daily_spend_limit_usd', 'generation_paused', 'publishing_paused', 'ads_paused', 'bot_score_ad_cutoff', 'min_publish_score', 'min_safety_score', 'm0_validated') ORDER BY `key`",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2wCcvzbmKRw9Pje.541775a93539 --database i2oxkxp52Nqaqoc37frtnY --execute SELECT `key`, `value`, `description` FROM system_settings WHERE `key` IN ('daily_spend_limit_usd', 'generation_paused', 'publishing_paused', 'ads_paused', 'bot_score_ad_cutoff', 'min_publish_score', 'min_safety_score', 'm0_validated') ORDER BY `key`",
+  "rows": [
+    {
+      "key": "ads_paused",
+      "value": "false",
+      "description": "Global pause switch for ad serving"
+    },
+    {
+      "key": "bot_score_ad_cutoff",
+      "value": "60",
+      "description": "Sessions with bot_score >= this value do not receive ads"
+    },
+    {
+      "key": "daily_spend_limit_usd",
+      "value": "5.00",
+      "description": "Maximum LLM spend per day in USD"
+    },
+    {
+      "key": "generation_paused",
+      "value": "false",
+      "description": "Global pause switch for content generation worker"
+    },
+    {
+      "key": "m0_validated",
+      "value": "true",
+      "description": "Milestone 0 validation status"
+    },
+    {
+      "key": "min_publish_score",
+      "value": "75",
+      "description": "Minimum publish_score threshold for page approval"
+    },
+    {
+      "key": "min_safety_score",
+      "value": "95",
+      "description": "Minimum safety_score threshold for page approval"
+    },
+    {
+      "key": "publishing_paused",
+      "value": "false",
+      "description": "Global pause switch for publishing worker"
+    }
+  ],
+  "messages": [],
+  "stdout": "key\tvalue\tdescription\nads_paused\tfalse\tGlobal pause switch for ad serving\nbot_score_ad_cutoff\t60\tSessions with bot_score >= this value do not receive ads\ndaily_spend_limit_usd\t5.00\tMaximum LLM spend per day in USD\ngeneration_paused\tfalse\tGlobal pause switch for content generation worker\nm0_validated\ttrue\tMilestone 0 validation status\nmin_publish_score\t75\tMinimum publish_score threshold for page approval\nmin_safety_score\t95\tMinimum safety_score threshold for page approval\npublishing_paused\tfalse\tGlobal pause switch for publishing worker\n",
+  "stderr": "",
+  "execution_time_ms": 1748
+}
