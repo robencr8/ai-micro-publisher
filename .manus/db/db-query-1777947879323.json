@@ -1,0 +1,9 @@
+{
+  "query": "UPDATE topics SET status = 'accepted' WHERE status = 'done' LIMIT 6;\nDELETE FROM generation_jobs WHERE status IN ('running', 'completed') AND job_type = 'generate';\nDELETE FROM content_pages WHERE status IN ('draft', 'reviewing')",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2wCcvzbmKRw9Pje.541775a93539 --database i2oxkxp52Nqaqoc37frtnY --execute UPDATE topics SET status = 'accepted' WHERE status = 'done' LIMIT 6;\nDELETE FROM generation_jobs WHERE status IN ('running', 'completed') AND job_type = 'generate';\nDELETE FROM content_pages WHERE status IN ('draft', 'reviewing')",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 2000
+}

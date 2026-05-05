@@ -1,0 +1,8 @@
+{
+  "query": "DELETE FROM content_pages WHERE id IN (30001, 30002, 30003, 30004, 30005);\nUPDATE topics SET status = 'accepted' WHERE id IN (40, 1, 7, 21, 19)",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2wCcvzbmKRw9Pje.541775a93539 --database i2oxkxp52Nqaqoc37frtnY --execute DELETE FROM content_pages WHERE id IN (30001, 30002, 30003, 30004, 30005);\nUPDATE topics SET status = 'accepted' WHERE id IN (40, 1, 7, 21, 19)",
+  "returncode": 1,
+  "logs": [
+    "ERROR 1451 (23000) at line 1: Cannot delete or update a parent row: a foreign key constraint fails (`i2oxkxp52nqaqoc37frtny`.`generation_jobs`, CONSTRAINT `generation_jobs_page_id_content_pages_id_fk` FOREIGN KEY (`page_id`) REFERENCES `content_pages` (`id`) ON DELETE NO ACTION ON UPDATE NO )"
+  ]
+}

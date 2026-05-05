@@ -96,7 +96,7 @@ function getBlockedClaims(keyword: string): string[] {
 
 function detectAudience(keyword: string): string {
   const lower = keyword.toLowerCase();
-  if (/developer|programmer|engineer|coding|software|javascript|python|react/i.test(lower)) {
+  if (/developer|programmer|engineer|coding|software|javascript|python|react|git|rebase|merge|docker|api|backend|frontend|typescript|nodejs/i.test(lower)) {
     return "software developers and engineers";
   }
   if (/manager|team|leadership|management|executive/i.test(lower)) {
@@ -190,12 +190,20 @@ Every article must be genuinely useful to the target audience.`;
 
 export function buildUserPrompt(brief: ContentBrief): string {
   return `Write a helpful ${brief.pageType} page about: "${brief.topic}"
-
 Target keyword: ${brief.targetKeyword}
 Audience: ${brief.audience}
 Tone: ${brief.tone}
 Max words: ${brief.maxWords}
 Language: ${brief.language}
+
+CRITICAL keyword requirement:
+- The exact phrase "${brief.targetKeyword}" MUST appear naturally in the body text at least 2-3 times
+- Include it in the introduction, at least one section heading or paragraph, and near the conclusion
+- Do NOT keyword-stuff — use it naturally as a real writer would
+
+CRITICAL audience requirement:
+- Write specifically for ${brief.audience} — use their vocabulary, context, and real-world scenarios
+- Do NOT write for a generic audience
 
 Required sections (use ## headings):
 ${brief.requiredSections.map((s) => `- ${s}`).join("\n")}
@@ -204,11 +212,11 @@ Do NOT include:
 ${brief.blockedClaims.map((c) => `- ${c}`).join("\n")}
 
 Format requirements:
-- Start with a single H1 (# Title)
+- Start with a single H1 (# Title) that includes or paraphrases the target keyword
 - Use ## for each required section
 - Include at least one numbered list or bullet list
 - Keep total length between ${Math.round(brief.maxWords * 0.8)} and ${brief.maxWords} words
-- End with a short FAQ section (at least 2 Q&A pairs)
+- End with a short FAQ section (at least 2 Q&A pairs) where at least one question uses the target keyword
 ${brief.internalLinks.length > 0 ? `\nNaturally reference these related topics where relevant:\n${brief.internalLinks.map((l) => `- ${l}`).join("\n")}` : ""}`;
 }
 

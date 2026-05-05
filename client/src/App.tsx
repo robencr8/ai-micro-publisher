@@ -9,6 +9,7 @@ import PrototypePage from "./pages/Prototype";
 import AdminTopicsPage from "./pages/AdminTopics";
 import AdminGenerationPage from "./pages/AdminGeneration";
 import AdminQualityPage from "./pages/AdminQuality";
+import PublicPage from "./pages/PublicPage";
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
@@ -19,6 +20,7 @@ function Router() {
       <Route path={"/admin/topics"} component={AdminTopicsPage} />
       <Route path={"/admin/generation"} component={AdminGenerationPage} />
       <Route path={"/admin/quality"} component={AdminQualityPage} />
+      <Route path={"/p/:slug"} component={PublicPage} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />

@@ -102,7 +102,32 @@ async function startServer() {
         res.status(500).json({ error: err instanceof Error ? err.message : String(err) });
       }
     });
+
+    app.post('/api/dev/publish-all', async (_req, res) => {
+      try {
+        const { publishAllApproved } = await import('../m5/publisher');
+        const baseUrl = process.env.VITE_APP_URL ?? 'https://your-domain.manus.space';
+        const results = await publishAllApproved(baseUrl);
+        res.json({ success: true, published: results.filter(r => r.success).length, results });
+      } catch (err) {
+        res.status(500).json({ error: err instanceof Error ? err.message : String(err) });
+      }
+    });
   }
+
+  // Sitemap endpoint (public)
+  app.get('/sitemap.xml', async (_req, res) => {
+    try {
+      const { generateSitemapEntries, buildSitemapXml } = await import('../m5/sitemap');
+      const baseUrl = process.env.VITE_APP_URL ?? 'https://your-domain.manus.space';
+      const entries = await generateSitemapEntries(baseUrl);
+      const xml = buildSitemapXml(entries, baseUrl);
+      res.set('Content-Type', 'application/xml');
+      res.send(xml);
+    } catch (err) {
+      res.status(500).send('Sitemap generation failed');
+    }
+  });
 
   // tRPC API
   app.use(

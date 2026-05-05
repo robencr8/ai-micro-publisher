@@ -7,6 +7,7 @@ import { adminRouter } from "./routers/admin";
 import { topicsRouter } from "./routers/topics";
 import { generationRouter } from "./routers/generation";
 import { qualityRouter } from "./routers/quality";
+import { publishingRouter } from "./routers/publishing";
 
 export const appRouter = router({
     // if you need to use socket.io, read and register route in server/_core/index.ts, all api should start with '/api/' so that the gateway can route correctly
@@ -16,6 +17,7 @@ export const appRouter = router({
   topics: topicsRouter,
   generation: generationRouter,
   quality: qualityRouter,
+  publishing: publishingRouter,
   auth: router({
     me: publicProcedure.query(opts => opts.ctx.user),
     logout: publicProcedure.mutation(({ ctx }) => {

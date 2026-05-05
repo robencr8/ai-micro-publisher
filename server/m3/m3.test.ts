@@ -159,6 +159,45 @@ describe("buildSystemPrompt", () => {
   });
 });
 
+describe("buildUserPrompt — keyword embedding patch", () => {
+  it("includes CRITICAL keyword requirement instruction", () => {
+    const brief = generateBrief("how to write a polite follow-up email after no response");
+    const prompt = buildUserPrompt(brief);
+    expect(prompt).toContain("CRITICAL keyword requirement");
+    expect(prompt).toContain("MUST appear naturally");
+    expect(prompt).toContain("2-3 times");
+  });
+
+  it("includes CRITICAL audience requirement instruction", () => {
+    const brief = generateBrief("how to write a polite follow-up email after no response");
+    const prompt = buildUserPrompt(brief);
+    expect(prompt).toContain("CRITICAL audience requirement");
+    expect(prompt).toContain("Write specifically for");
+    expect(prompt).toContain("Do NOT write for a generic audience");
+  });
+
+  it("embeds target keyword in the prompt instructions", () => {
+    const brief = generateBrief("python list comprehension examples");
+    const prompt = buildUserPrompt(brief);
+    // The keyword should appear in the CRITICAL keyword requirement section
+    expect(prompt).toContain("python list comprehension examples");
+  });
+
+  it("uses specific audience in CRITICAL audience section", () => {
+    const brief = generateBrief("how to use git rebase vs merge");
+    const prompt = buildUserPrompt(brief);
+    // Developer audience should be detected and used
+    expect(brief.audience).toContain("developer");
+    expect(prompt).toContain(brief.audience);
+  });
+
+  it("FAQ instruction includes target keyword requirement", () => {
+    const brief = generateBrief("how to negotiate salary for a new job");
+    const prompt = buildUserPrompt(brief);
+    expect(prompt).toContain("at least one question uses the target keyword");
+  });
+});
+
 describe("buildUserPrompt", () => {
   it("includes the topic keyword", () => {
     const brief = generateBrief("how to write a follow-up email");

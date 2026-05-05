@@ -1,0 +1,91 @@
+{
+  "query": "SELECT id, slug, status, quality_decision, publish_score, safety_score, usefulness_score FROM content_pages ORDER BY id",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2wCcvzbmKRw9Pje.541775a93539 --database i2oxkxp52Nqaqoc37frtnY --execute SELECT id, slug, status, quality_decision, publish_score, safety_score, usefulness_score FROM content_pages ORDER BY id",
+  "rows": [
+    {
+      "id": "30006",
+      "slug": "remote-work-productivity-tips",
+      "status": "approved",
+      "quality_decision": "approve",
+      "publish_score": "92",
+      "safety_score": "98",
+      "usefulness_score": "85"
+    },
+    {
+      "id": "30007",
+      "slug": "summer-internship-tips-for-software-developers",
+      "status": "reviewing",
+      "quality_decision": "retry",
+      "publish_score": "88",
+      "safety_score": "98",
+      "usefulness_score": "75"
+    },
+    {
+      "id": "30008",
+      "slug": "how-to-write-a-polite-follow-up-email-after-no-response",
+      "status": "approved",
+      "quality_decision": "approve",
+      "publish_score": "92",
+      "safety_score": "100",
+      "usefulness_score": "85"
+    },
+    {
+      "id": "30009",
+      "slug": "best-free-project-management-tools-for-small-teams",
+      "status": "reviewing",
+      "quality_decision": "retry",
+      "publish_score": "87",
+      "safety_score": "98",
+      "usefulness_score": "75"
+    },
+    {
+      "id": "30010",
+      "slug": "cover-letter-template-for-software-developer",
+      "status": "reviewing",
+      "quality_decision": "retry",
+      "publish_score": "85",
+      "safety_score": "98",
+      "usefulness_score": "65"
+    },
+    {
+      "id": "30011",
+      "slug": "linkedin-profile-tips-for-software-engineers",
+      "status": "approved",
+      "quality_decision": "approve",
+      "publish_score": "94",
+      "safety_score": "100",
+      "usefulness_score": "85"
+    },
+    {
+      "id": "30012",
+      "slug": "best-free-online-courses-for-web-development",
+      "status": "reviewing",
+      "quality_decision": "retry",
+      "publish_score": "87",
+      "safety_score": "95",
+      "usefulness_score": "75"
+    },
+    {
+      "id": "30013",
+      "slug": "healthy-meal-prep-ideas-for-the-week",
+      "status": "reviewing",
+      "quality_decision": "retry",
+      "publish_score": "92",
+      "safety_score": "98",
+      "usefulness_score": "85"
+    },
+    {
+      "id": "30014",
+      "slug": "professional-email-subject-line-examples",
+      "status": "reviewing",
+      "quality_decision": "retry",
+      "publish_score": "93",
+      "safety_score": "100",
+      "usefulness_score": "85"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tslug\tstatus\tquality_decision\tpublish_score\tsafety_score\tusefulness_score\n30006\tremote-work-productivity-tips\tapproved\tapprove\t92\t98\t85\n30007\tsummer-internship-tips-for-software-developers\treviewing\tretry\t88\t98\t75\n30008\thow-to-write-a-polite-follow-up-email-after-no-response\tapproved\tapprove\t92\t100\t85\n30009\tbest-free-project-management-tools-for-small-teams\treviewing\tretry\t87\t98\t75\n30010\tcover-letter-template-for-software-developer\treviewing\tretry\t85\t98\t65\n30011\tlinkedin-profile-tips-for-software-engineers\tapproved\tapprove\t94\t100\t85\n30012\tbest-free-online-courses-for-web-development\treviewing\tretry\t87\t95\t75\n30013\thealthy-meal-prep-ideas-for-the-week\treviewing\tretry\t92\t98\t85\n30014\tprofessional-email-subject-line-examples\treviewing\tretry\t93\t100\t85\n",
+  "stderr": "",
+  "execution_time_ms": 1509
+}
