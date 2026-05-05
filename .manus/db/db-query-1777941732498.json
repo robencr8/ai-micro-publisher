@@ -1,0 +1,100 @@
+{
+  "query": "SELECT keyword, source, opportunity_score, trend_score, search_intent_score, policy_risk_score, status FROM topics ORDER BY opportunity_score DESC LIMIT 10",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2wCcvzbmKRw9Pje.541775a93539 --database i2oxkxp52Nqaqoc37frtnY --execute SELECT keyword, source, opportunity_score, trend_score, search_intent_score, policy_risk_score, status FROM topics ORDER BY opportunity_score DESC LIMIT 10",
+  "rows": [
+    {
+      "keyword": "summer internship tips for software developers",
+      "source": "seasonal",
+      "opportunity_score": "82",
+      "trend_score": "58",
+      "search_intent_score": "80",
+      "policy_risk_score": "90",
+      "status": "candidate"
+    },
+    {
+      "keyword": "how to write a polite follow-up email after no response",
+      "source": "seeded",
+      "opportunity_score": "81",
+      "trend_score": "45",
+      "search_intent_score": "90",
+      "policy_risk_score": "90",
+      "status": "candidate"
+    },
+    {
+      "keyword": "best free project management tools for small teams",
+      "source": "seeded",
+      "opportunity_score": "80",
+      "trend_score": "49",
+      "search_intent_score": "80",
+      "policy_risk_score": "90",
+      "status": "candidate"
+    },
+    {
+      "keyword": "linkedin profile tips for software engineers",
+      "source": "seeded",
+      "opportunity_score": "79",
+      "trend_score": "46",
+      "search_intent_score": "80",
+      "policy_risk_score": "90",
+      "status": "candidate"
+    },
+    {
+      "keyword": "cover letter template for software developer",
+      "source": "seeded",
+      "opportunity_score": "79",
+      "trend_score": "43",
+      "search_intent_score": "80",
+      "policy_risk_score": "90",
+      "status": "candidate"
+    },
+    {
+      "keyword": "remote work productivity tips",
+      "source": "seeded",
+      "opportunity_score": "78",
+      "trend_score": "44",
+      "search_intent_score": "80",
+      "policy_risk_score": "90",
+      "status": "candidate"
+    },
+    {
+      "keyword": "best free online courses for web development",
+      "source": "seeded",
+      "opportunity_score": "77",
+      "trend_score": "49",
+      "search_intent_score": "80",
+      "policy_risk_score": "90",
+      "status": "candidate"
+    },
+    {
+      "keyword": "healthy meal prep ideas for the week",
+      "source": "seeded",
+      "opportunity_score": "76",
+      "trend_score": "47",
+      "search_intent_score": "60",
+      "policy_risk_score": "90",
+      "status": "candidate"
+    },
+    {
+      "keyword": "professional email subject line examples",
+      "source": "seeded",
+      "opportunity_score": "74",
+      "trend_score": "42",
+      "search_intent_score": "60",
+      "policy_risk_score": "90",
+      "status": "candidate"
+    },
+    {
+      "keyword": "how to decline a meeting invitation politely",
+      "source": "seeded",
+      "opportunity_score": "73",
+      "trend_score": "39",
+      "search_intent_score": "90",
+      "policy_risk_score": "90",
+      "status": "candidate"
+    }
+  ],
+  "messages": [],
+  "stdout": "keyword\tsource\topportunity_score\ttrend_score\tsearch_intent_score\tpolicy_risk_score\tstatus\nsummer internship tips for software developers\tseasonal\t82\t58\t80\t90\tcandidate\nhow to write a polite follow-up email after no response\tseeded\t81\t45\t90\t90\tcandidate\nbest free project management tools for small teams\tseeded\t80\t49\t80\t90\tcandidate\nlinkedin profile tips for software engineers\tseeded\t79\t46\t80\t90\tcandidate\ncover letter template for software developer\tseeded\t79\t43\t80\t90\tcandidate\nremote work productivity tips\tseeded\t78\t44\t80\t90\tcandidate\nbest free online courses for web development\tseeded\t77\t49\t80\t90\tcandidate\nhealthy meal prep ideas for the week\tseeded\t76\t47\t60\t90\tcandidate\nprofessional email subject line examples\tseeded\t74\t42\t60\t90\tcandidate\nhow to decline a meeting invitation politely\tseeded\t73\t39\t90\t90\tcandidate\n",
+  "stderr": "",
+  "execution_time_ms": 1500
+}

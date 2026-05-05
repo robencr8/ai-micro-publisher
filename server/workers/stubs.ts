@@ -8,23 +8,14 @@
  * - If Redis is unavailable, they log once and stay in DEGRADED state.
  * - They do NOT spam connection errors or crash the process.
  */
-
 import { Job } from "bullmq";
 import { BaseWorker } from "./base";
 import { QUEUE_NAMES } from "../queue/connection";
+import { TopicDiscoveryWorker as M2TopicDiscoveryWorker } from "../m2/worker";
 
-// ─── Topic Discovery Worker (M2) ──────────────────────────────────────────────
+// ─── Topic Discovery Worker (M2 — real implementation) ───────────────────────
 
-export class TopicDiscoveryWorker extends BaseWorker {
-  constructor() {
-    super(QUEUE_NAMES.TOPIC_DISCOVERY, "TopicDiscoveryWorker", "generation_paused");
-  }
-  protected async processJob(job: Job): Promise<void> {
-    console.log(`[TopicDiscoveryWorker] STUB — job ${job.id}`, job.data);
-    // M2: ingest RSS feeds, seasonal calendar, seeded keywords
-    // M2: score topics and upsert into topics table
-  }
-}
+export { M2TopicDiscoveryWorker as TopicDiscoveryWorker };
 
 // ─── Content Generation Worker (M3) ──────────────────────────────────────────
 
@@ -81,7 +72,7 @@ export class AnalyticsRollupWorker extends BaseWorker {
 // ─── Worker Registry ──────────────────────────────────────────────────────────
 
 export const ALL_WORKERS = [
-  new TopicDiscoveryWorker(),
+  new M2TopicDiscoveryWorker(),
   new ContentGenerationWorker(),
   new QualityReviewWorker(),
   new PublishPagesWorker(),

@@ -39,6 +39,20 @@ async function startServer() {
   registerStorageProxy(app);
   registerOAuthRoutes(app);
   registerHealthRoute(app);
+
+  // Dev-only: seed topics endpoint (no auth, only works in development)
+  if (process.env.NODE_ENV === 'development') {
+    app.post('/api/dev/seed-topics', async (_req, res) => {
+      try {
+        const { runTopicDiscovery } = await import('../m2/worker');
+        const results = await runTopicDiscovery(['seeded', 'seasonal']);
+        res.json({ success: true, results });
+      } catch (err) {
+        res.status(500).json({ error: err instanceof Error ? err.message : String(err) });
+      }
+    });
+  }
+
   // tRPC API
   app.use(
     "/api/trpc",

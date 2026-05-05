@@ -26,8 +26,22 @@
 - [ ] Queue execution proof: enqueue job, worker pickup, intentional failure, retry/backoff, final status
 - [x] Push M1 infrastructure code to GitHub (pending queue proof commit)
 
-## Post-M1 (BLOCKED until M1 GO decision)
-- [ ] Autonomous topic discovery worker (M2)
+## Milestone 2 (CURRENT — topic discovery)
+- [ ] Topic scoring engine: trend, search_intent, content_gap, ad_value, freshness, policy_risk, duplication, opportunity
+- [ ] Policy risk keyword blocklist
+- [ ] Seeded keyword list (safe, high-value utility topics)
+- [ ] RSS feed ingestion (HackerNews, Reddit, Google Trends RSS)
+- [ ] Seasonal calendar topics (month-aware)
+- [ ] Keyword normalization (lowercase, trim, dedup)
+- [ ] Duplicate-safe upsert into topics table
+- [ ] TopicDiscoveryWorker: replace stub with real implementation
+- [ ] Admin topic candidate tRPC procedures (list, accept, reject)
+- [ ] Admin topic candidate UI: table with scores, status, rejection reasons
+- [ ] M2 unit tests: scoring formula, policy risk, dedup logic
+- [ ] Push M2 to GitHub
+
+## Post-M2 (BLOCKED until M2 GO decision)
+- [ ] Content generation pipeline with version tracking (M3)
 - [ ] Content generation pipeline with version tracking (M3)
 - [ ] Two-stage quality gate (M4)
 - [ ] SEO publishing worker (M5)
