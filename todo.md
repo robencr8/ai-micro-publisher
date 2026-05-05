@@ -40,8 +40,22 @@
 - [ ] M2 unit tests: scoring formula, policy risk, dedup logic
 - [ ] Push M2 to GitHub
 
-## Post-M2 (BLOCKED until M2 GO decision)
-- [ ] Content generation pipeline with version tracking (M3)
+## Milestone 3 (CURRENT — content generation)
+- [ ] Structured brief generator: topic → content brief (sections, tone, max_words, blocked_claims)
+- [ ] ContentGenerationWorker: replace stub with real implementation
+- [ ] LLM draft generation using built-in invokeLLM
+- [ ] Version tracking: store multiple drafts per topic in content_pages
+- [ ] Generation job audit trail: model, tokens, cost estimate, latency, errors
+- [ ] Daily spend limit enforcement: check system_settings.daily_spend_limit_usd
+- [ ] Daily spend aggregation: sum generation_jobs.estimated_cost_usd per day
+- [ ] Admin generation status tRPC procedures (list jobs, spend summary, draft preview)
+- [ ] Admin generation UI: job table, spend tracker, draft preview panel
+- [ ] M3 unit tests: brief generator, cost estimation, spend limit logic
+- [ ] Push M3 to GitHub
+
+## Post-M3 (BLOCKED until M3 GO decision)
+- [ ] Two-stage quality gate (M4)
+- [ ] SEO publishing worker (M5)
 - [ ] Content generation pipeline with version tracking (M3)
 - [ ] Two-stage quality gate (M4)
 - [ ] SEO publishing worker (M5)

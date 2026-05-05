@@ -1,0 +1,43 @@
+{
+  "query": "SELECT gj.id, gj.topic_id, gj.status, gj.total_tokens, gj.estimated_cost_usd, gj.latency_ms, cp.title, cp.version, cp.status as page_status\nFROM generation_jobs gj\nLEFT JOIN content_pages cp ON cp.id = gj.page_id\nORDER BY gj.createdAt DESC LIMIT 5",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2wCcvzbmKRw9Pje.541775a93539 --database i2oxkxp52Nqaqoc37frtnY --execute SELECT gj.id, gj.topic_id, gj.status, gj.total_tokens, gj.estimated_cost_usd, gj.latency_ms, cp.title, cp.version, cp.status as page_status\nFROM generation_jobs gj\nLEFT JOIN content_pages cp ON cp.id = gj.page_id\nORDER BY gj.createdAt DESC LIMIT 5",
+  "rows": [
+    {
+      "id": "3",
+      "topic_id": "7",
+      "status": "running",
+      "total_tokens": "0",
+      "estimated_cost_usd": "0",
+      "latency_ms": "NULL",
+      "title": "NULL",
+      "version": "NULL",
+      "page_status": "NULL"
+    },
+    {
+      "id": "2",
+      "topic_id": "1",
+      "status": "running",
+      "total_tokens": "0",
+      "estimated_cost_usd": "0",
+      "latency_ms": "NULL",
+      "title": "NULL",
+      "version": "NULL",
+      "page_status": "NULL"
+    },
+    {
+      "id": "1",
+      "topic_id": "40",
+      "status": "running",
+      "total_tokens": "0",
+      "estimated_cost_usd": "0",
+      "latency_ms": "NULL",
+      "title": "NULL",
+      "version": "NULL",
+      "page_status": "NULL"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\ttopic_id\tstatus\ttotal_tokens\testimated_cost_usd\tlatency_ms\ttitle\tversion\tpage_status\n3\t7\trunning\t0\t0\tNULL\tNULL\tNULL\tNULL\n2\t1\trunning\t0\t0\tNULL\tNULL\tNULL\tNULL\n1\t40\trunning\t0\t0\tNULL\tNULL\tNULL\tNULL\n",
+  "stderr": "",
+  "execution_time_ms": 1520
+}

@@ -1,0 +1,82 @@
+{
+  "query": "SELECT gj.id, gj.topic_id, gj.status, gj.total_tokens, ROUND(gj.estimated_cost_usd, 5) as cost_usd, gj.latency_ms, gj.retry_count, cp.title, cp.version, cp.status as page_status\nFROM generation_jobs gj\nLEFT JOIN content_pages cp ON cp.id = gj.page_id\nORDER BY gj.createdAt DESC LIMIT 6",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2wCcvzbmKRw9Pje.541775a93539 --database i2oxkxp52Nqaqoc37frtnY --execute SELECT gj.id, gj.topic_id, gj.status, gj.total_tokens, ROUND(gj.estimated_cost_usd, 5) as cost_usd, gj.latency_ms, gj.retry_count, cp.title, cp.version, cp.status as page_status\nFROM generation_jobs gj\nLEFT JOIN content_pages cp ON cp.id = gj.page_id\nORDER BY gj.createdAt DESC LIMIT 6",
+  "rows": [
+    {
+      "id": "6",
+      "topic_id": "9",
+      "status": "completed",
+      "total_tokens": "1214",
+      "cost_usd": "0.00243",
+      "latency_ms": "10430",
+      "retry_count": "0",
+      "title": "Boosting Your Remote Work Productivity: Practical Tips for Success",
+      "version": "1",
+      "page_status": "draft"
+    },
+    {
+      "id": "5",
+      "topic_id": "19",
+      "status": "completed",
+      "total_tokens": "1254",
+      "cost_usd": "0.00251",
+      "latency_ms": "9494",
+      "retry_count": "0",
+      "title": "LinkedIn Profile Tips for Software Engineers",
+      "version": "1",
+      "page_status": "draft"
+    },
+    {
+      "id": "4",
+      "topic_id": "21",
+      "status": "completed",
+      "total_tokens": "1351",
+      "cost_usd": "0.0027",
+      "latency_ms": "11060",
+      "retry_count": "0",
+      "title": "Software Developer Cover Letter Template: Stand Out in Your Job Search",
+      "version": "1",
+      "page_status": "draft"
+    },
+    {
+      "id": "3",
+      "topic_id": "7",
+      "status": "running",
+      "total_tokens": "0",
+      "cost_usd": "0",
+      "latency_ms": "NULL",
+      "retry_count": "0",
+      "title": "NULL",
+      "version": "NULL",
+      "page_status": "NULL"
+    },
+    {
+      "id": "2",
+      "topic_id": "1",
+      "status": "running",
+      "total_tokens": "0",
+      "cost_usd": "0",
+      "latency_ms": "NULL",
+      "retry_count": "0",
+      "title": "NULL",
+      "version": "NULL",
+      "page_status": "NULL"
+    },
+    {
+      "id": "1",
+      "topic_id": "40",
+      "status": "running",
+      "total_tokens": "0",
+      "cost_usd": "0",
+      "latency_ms": "NULL",
+      "retry_count": "0",
+      "title": "NULL",
+      "version": "NULL",
+      "page_status": "NULL"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\ttopic_id\tstatus\ttotal_tokens\tcost_usd\tlatency_ms\tretry_count\ttitle\tversion\tpage_status\n6\t9\tcompleted\t1214\t0.00243\t10430\t0\tBoosting Your Remote Work Productivity: Practical Tips for Success\t1\tdraft\n5\t19\tcompleted\t1254\t0.00251\t9494\t0\tLinkedIn Profile Tips for Software Engineers\t1\tdraft\n4\t21\tcompleted\t1351\t0.0027\t11060\t0\tSoftware Developer Cover Letter Template: Stand Out in Your Job Search\t1\tdraft\n3\t7\trunning\t0\t0\tNULL\t0\tNULL\tNULL\tNULL\n2\t1\trunning\t0\t0\tNULL\t0\tNULL\tNULL\tNULL\n1\t40\trunning\t0\t0\tNULL\t0\tNULL\tNULL\tNULL\n",
+  "stderr": "",
+  "execution_time_ms": 1543
+}

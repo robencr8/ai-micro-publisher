@@ -40,13 +40,54 @@ async function startServer() {
   registerOAuthRoutes(app);
   registerHealthRoute(app);
 
-  // Dev-only: seed topics endpoint (no auth, only works in development)
+  // Dev-only endpoints (no auth, only works in development)
   if (process.env.NODE_ENV === 'development') {
     app.post('/api/dev/seed-topics', async (_req, res) => {
       try {
         const { runTopicDiscovery } = await import('../m2/worker');
         const results = await runTopicDiscovery(['seeded', 'seasonal']);
         res.json({ success: true, results });
+      } catch (err) {
+        res.status(500).json({ error: err instanceof Error ? err.message : String(err) });
+      }
+    });
+
+    app.post('/api/dev/accept-topics', async (req, res) => {
+      try {
+        const { getDb } = await import('../db');
+        const { topics } = await import('../../drizzle/schema');
+        const { eq, desc } = await import('drizzle-orm');
+        const db = await getDb();
+        if (!db) { res.json({ accepted: 0 }); return; }
+        const count = (req.body as { count?: number }).count ?? 3;
+        const candidates = await db.select({ id: topics.id }).from(topics)
+          .where(eq(topics.status, 'candidate'))
+          .orderBy(desc(topics.opportunityScore as Parameters<typeof desc>[0]))
+          .limit(count);
+        for (const { id } of candidates) {
+          await db.update(topics).set({ status: 'accepted' }).where(eq(topics.id, id));
+        }
+        res.json({ accepted: candidates.length, topicIds: candidates.map(t => t.id) });
+      } catch (err) {
+        res.status(500).json({ error: err instanceof Error ? err.message : String(err) });
+      }
+    });
+
+    app.post('/api/dev/generate-batch', async (req, res) => {
+      try {
+        const { runContentGeneration } = await import('../m3/worker');
+        const batchSize = (req.body as { batchSize?: number }).batchSize ?? 3;
+        const results = await runContentGeneration({ batchSize });
+        const totalCost = results.reduce((s, r) => s + r.estimatedCostUsd, 0);
+        res.json({
+          success: true,
+          results,
+          summary: {
+            succeeded: results.filter(r => r.success).length,
+            failed: results.filter(r => !r.success).length,
+            totalCostUsd: parseFloat(totalCost.toFixed(6)),
+          }
+        });
       } catch (err) {
         res.status(500).json({ error: err instanceof Error ? err.message : String(err) });
       }

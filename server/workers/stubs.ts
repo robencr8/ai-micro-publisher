@@ -12,23 +12,15 @@ import { Job } from "bullmq";
 import { BaseWorker } from "./base";
 import { QUEUE_NAMES } from "../queue/connection";
 import { TopicDiscoveryWorker as M2TopicDiscoveryWorker } from "../m2/worker";
+import { ContentGenerationWorker as M3ContentGenerationWorker } from "../m3/worker";
 
 // ─── Topic Discovery Worker (M2 — real implementation) ───────────────────────
 
 export { M2TopicDiscoveryWorker as TopicDiscoveryWorker };
 
-// ─── Content Generation Worker (M3) ──────────────────────────────────────────
+// ─── Content Generation Worker (M3 — real implementation) ───────────────────
 
-export class ContentGenerationWorker extends BaseWorker {
-  constructor() {
-    super(QUEUE_NAMES.CONTENT_GENERATION, "ContentGenerationWorker", "generation_paused");
-  }
-  protected async processJob(job: Job): Promise<void> {
-    console.log(`[ContentGenerationWorker] STUB — job ${job.id}`, job.data);
-    // M3: build structured brief, call LLM, store draft in content_pages
-    // M3: record generation_jobs audit trail with tokens/cost/latency
-  }
-}
+export { M3ContentGenerationWorker as ContentGenerationWorker };
 
 // ─── Quality Review Worker (M4) ──────────────────────────────────────────────
 
@@ -73,7 +65,7 @@ export class AnalyticsRollupWorker extends BaseWorker {
 
 export const ALL_WORKERS = [
   new M2TopicDiscoveryWorker(),
-  new ContentGenerationWorker(),
+  new M3ContentGenerationWorker(),
   new QualityReviewWorker(),
   new PublishPagesWorker(),
   new AnalyticsRollupWorker(),

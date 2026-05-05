@@ -7,6 +7,7 @@ import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
 import PrototypePage from "./pages/Prototype";
 import AdminTopicsPage from "./pages/AdminTopics";
+import AdminGenerationPage from "./pages/AdminGeneration";
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
@@ -15,6 +16,7 @@ function Router() {
       <Route path={"/"} component={Home} />
       <Route path={"/prototype"} component={PrototypePage} />
       <Route path={"/admin/topics"} component={AdminTopicsPage} />
+      <Route path={"/admin/generation"} component={AdminGenerationPage} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />
